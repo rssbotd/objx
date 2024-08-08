@@ -64,23 +64,10 @@ def scan(modstr, *pkgs, disable=""):
     return mds
 
 
-def wrap(func):
-    "catch exceptions"
-    try:
-        func()
-    except (KeyboardInterrupt, EOFError):
-        print("")
-    except Exception as ex:
-        later(ex)
-    errors()
-
-
-
 def __dir__():
     return (
         'cmnd',
         'enable',
         'init',
-        'scan',
-        'wrap'
+        'scan'
     )
