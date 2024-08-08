@@ -16,6 +16,7 @@ sys.path.insert(0, os.getcwd())
 
 from objx.cfg    import Config
 from objx.disk   import Persist, skel
+from objx.errors import errors, later
 from objx.main   import init, scan
 from objx.utils  import forever, pidfile, privileges
 
