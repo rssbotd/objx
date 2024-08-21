@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
+# pylint: disable=R0903,C0413
 
 
 "locate"
@@ -7,12 +8,26 @@
 
 import os
 import sys
+import time
 
 
 sys.path.insert(0, os.getcwd())
 
 
-from objx.face import Default, Object, find, fmt, long, skel, types
+from objx.default import Default
+from objx.config  import Config
+from objx.object  import Object, fmt
+from objx.persist import Persist, find, long, skel, sync, types
+from objx.utility import fntime, laps
+
+
+Cfg         = Config()
+Cfg.name    = Config.__module__.rsplit(".", maxsplit=1)[-2]
+Cfg.wdr     = os.path.expanduser(f"~/.{Cfg.name}")
+Cfg.pidfile = os.path.join(Cfg.wdr, f"{Cfg.name}.pid")
+
+
+Persist.workdir = Cfg.wdr
 
 
 class Result(Default):
@@ -22,6 +37,7 @@ class Result(Default):
     def __init__(self):
         Default.__init__(self)
         self.result  = []
+        self.txt     = ""
 
     def reply(self, txt):
         "add text to the result"
@@ -113,8 +129,8 @@ def fnd(event):
         return
     otype = long(event.args[0])
     nmr = 0
-    for _fnm, obj in find(otype, event.gets):
-        event.reply(f"{nmr} {fmt(obj)}")
+    for fnm, obj in find(otype, event.gets):
+        event.reply(f"{nmr} {fmt(obj)} {laps(time.time()-fntime(fnm))}")
         nmr += 1
     if not nmr:
         event.reply("no result")
@@ -149,8 +165,8 @@ def log(event):
 if __name__ == "__main__":
     Commands.add(fnd)
     Commands.add(log)
-    event = Result()
-    event.txt =  ".".join(sys.argv[1:])
-    command(event)
-    for line in event.result:
+    result = Result()
+    result.txt = " ".join(sys.argv[1:])
+    command(result)
+    for line in result.result:
         print(line)
