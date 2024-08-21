@@ -15,7 +15,7 @@ from .default import Default
 from .encoder import write
 from .object  import Object, fqn, ident, search, update
 from .lock    import disklock
-from .utils   import fntime, strip
+from .utility import fntime, strip
 
 
 class Persist(Object):
