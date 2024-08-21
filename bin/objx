@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+
+
+"locate"
+
+
+import os
+import sys
+
+
+sys.path.insert(0, os.getcwd())
+
+
+from objx.face import Default, Object, find, fmt, long, skel, types
+
+
+class Result(Default):
+
+    "Result"
+
+    def __init__(self):
+        Default.__init__(self)
+        self.result  = []
+
+    def reply(self, txt):
+        "add text to the result"
+        self.result.append(txt)
+
+
+class Commands:
+
+    "Commands"
+
+    cmds = Object()
+
+    @staticmethod
+    def add(func):
+        "add command."
+        setattr(Commands.cmds, func.__name__, func)
+
+
+def command(evt):
+    "check for and run a command."
+    parse(evt)
+    func = getattr(Commands.cmds, evt.cmd, None)
+    if func:
+        func(evt)
+
+
+def parse(obj, txt=None):
+    "parse a string for a command."
+    args = []
+    obj.args    = obj.args or []
+    obj.cmd     = obj.cmd or ""
+    obj.gets    = obj.gets or Default()
+    obj.hasmods = obj.hasmod or False
+    obj.index   = None
+    obj.mod     = obj.mod or ""
+    obj.opts    = obj.opts or ""
+    obj.result  = obj.reult or []
+    obj.sets    = obj.sets or Default()
+    obj.txt     = txt or obj.txt or ""
+    obj.otxt    = obj.txt
+    _nr = -1
+    for spli in obj.otxt.split():
+        if spli.startswith("-"):
+            try:
+                obj.index = int(spli[1:])
+            except ValueError:
+                obj.opts += spli[1:]
+            continue
+        if "==" in spli:
+            key, value = spli.split("==", maxsplit=1)
+            if key in obj.gets:
+                val = getattr(obj.gets, key)
+                value = val + "," + value
+            setattr(obj.gets, key, value)
+            continue
+        if "=" in spli:
+            key, value = spli.split("=", maxsplit=1)
+            if key == "mod":
+                obj.hasmods = True
+                if obj.mod:
+                    obj.mod += f",{value}"
+                else:
+                    obj.mod = value
+                continue
+            setattr(obj.sets, key, value)
+            continue
+        _nr += 1
+        if _nr == 0:
+            obj.cmd = spli
+            continue
+        args.append(spli)
+    if args:
+        obj.args = args
+        obj.txt  = obj.cmd or ""
+        obj.rest = " ".join(obj.args)
+        obj.txt  = obj.cmd + " " + obj.rest
+    else:
+        obj.txt = obj.cmd or ""
+
+
+
+def fnd(event):
+    "locate objects."
+    skel()
+    if not event.rest:
+        res = sorted([x.split('.')[-1].lower() for x in types()])
+        if res:
+            event.reply(",".join(res))
+        return
+    otype = long(event.args[0])
+    nmr = 0
+    for _fnm, obj in find(otype, event.gets):
+        event.reply(f"{nmr} {fmt(obj)}")
+        nmr += 1
+    if not nmr:
+        event.reply("no result")
+
+
+class Log(Object):
+
+    "Log"
+
+    def __init__(self):
+        super().__init__()
+        self.txt = ''
+
+
+def log(event):
+    "log text."
+    if not event.rest:
+        nmr = 0
+        for fnm, obj in find('log'):
+            lap = laps(time.time() - fntime(fnm))
+            event.reply(f'{nmr} {obj.txt} {lap}')
+            nmr += 1
+        if not nmr:
+            event.reply('no log')
+        return
+    obj = Log()
+    obj.txt = event.rest
+    sync(obj)
+    event.reply('ok')
+
+
+if __name__ == "__main__":
+    Commands.add(fnd)
+    Commands.add(log)
+    event = Result()
+    event.txt =  ".".join(sys.argv[1:])
+    command(event)
+    for line in event.result:
+        print(line)
