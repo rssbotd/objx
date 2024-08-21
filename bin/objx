@@ -16,7 +16,7 @@ sys.path.insert(0, os.getcwd())
 
 from objx.default import Default
 from objx.config  import Config
-from objx.object  import Object, fmt
+from objx.object  import Object, fmt, keys
 from objx.persist import Persist, find, long, skel, sync, types
 from objx.utility import fntime, laps
 
@@ -67,18 +67,8 @@ def command(evt):
 def parse(obj, txt=None):
     "parse a string for a command."
     args = []
-    obj.args    = obj.args or []
-    obj.cmd     = obj.cmd or ""
-    obj.gets    = obj.gets or Default()
-    obj.hasmods = obj.hasmod or False
-    obj.index   = None
-    obj.mod     = obj.mod or ""
-    obj.opts    = obj.opts or ""
-    obj.result  = obj.reult or []
-    obj.sets    = obj.sets or Default()
-    obj.txt     = txt or obj.txt or ""
-    obj.otxt    = obj.txt
     _nr = -1
+    obj.otxt = txt or obj.otxt or obj.txt
     for spli in obj.otxt.split():
         if spli.startswith("-"):
             try:
@@ -88,6 +78,8 @@ def parse(obj, txt=None):
             continue
         if "==" in spli:
             key, value = spli.split("==", maxsplit=1)
+            if not obj.gets:
+                obj.gets = Default()
             if key in obj.gets:
                 val = getattr(obj.gets, key)
                 value = val + "," + value
@@ -102,6 +94,8 @@ def parse(obj, txt=None):
                 else:
                     obj.mod = value
                 continue
+            if not obj.gets:
+                obj.gets = Default()
             setattr(obj.sets, key, value)
             continue
         _nr += 1
@@ -117,6 +111,11 @@ def parse(obj, txt=None):
     else:
         obj.txt = obj.cmd or ""
 
+
+
+def cmd(event):
+    "list commands."
+    event.reply(",".join(sorted(keys(Commands.cmds))))
 
 
 def fnd(event):
@@ -163,6 +162,7 @@ def log(event):
 
 
 if __name__ == "__main__":
+    Commands.add(cmd)
     Commands.add(fnd)
     Commands.add(log)
     result = Result()
