@@ -24,7 +24,6 @@ def fntime(daystr):
     "convert file name to it's saved time."
     daystr = daystr.replace('_', ':')
     datestr = ' '.join(daystr.split(SEP)[-2:])
-    print(datestr)
     if '.' in datestr:
         datestr, rest = datestr.rsplit('.', 1)
     else:
@@ -32,7 +31,6 @@ def fntime(daystr):
     timed = time.mktime(time.strptime(datestr, '%Y-%m-%d %H:%M:%S'))
     if rest:
         timed += float('.' + rest)
-    print(timed)
     return timed
 
 
