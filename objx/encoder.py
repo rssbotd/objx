@@ -8,9 +8,9 @@
 import json
 
 
-from .lock  import lock
-from .object import Object
-from .utils  import cdir
+from .lock    import lock
+from .object  import Object
+from .utility import cdir
 
 
 class ObjectEncoder(json.JSONEncoder):

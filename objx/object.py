@@ -15,6 +15,9 @@ class Object:
     def __contains__(self, key):
         return key in dir(self)
 
+    def __getstate__(self):
+        "no pickle."
+
     def __iter__(self):
         return iter(self.__dict__)
 
@@ -172,5 +175,5 @@ def __dir__():
         'match',
         'search',
         'update',
-        'values',
+        'values'
     )
