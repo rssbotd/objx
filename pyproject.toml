@@ -11,7 +11,7 @@ name = "objx"
 description = "objects"
 version = "92"
 authors = [
-    {name = "xobjectz", email = "objx@proton.me"},
+    {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
 readme = "README.rst"
 license = {text="Public Domain"}
@@ -26,27 +26,19 @@ classifiers = [
 
 [project.urls]
 "home" = "https://pypi.org/project/objx"
-"bugs" = "https://github.com/xobjectz/objx/issues"
-"source" = "https://github.com/xobjectz/objx"
+"bugs" = "https://github.com/rssbotd/objx/issues"
+"source" = "https://github.com/rssbotd/objx"
 
 
 [tool.setuptools]
-script-files = [
-    "bin/objx",
-    "bin/objxc",
-    "bin/objxd"
-]
 packages = [
     'objx',
-    'objx.modules',
-    'objx.user'
 ]
 zip-safe=true
 
 
 [tool.setuptools.data-files]
 "share/doc/objx" = [
-    "files/MANUAL.rst",
     "README.rst"
 ]
 
