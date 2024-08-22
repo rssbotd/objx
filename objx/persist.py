@@ -24,6 +24,16 @@ class Persist(Object):
     fqns = []
     workdir = ""
 
+    @staticmethod
+    def scan(mod):
+        "scan module for classes."
+        for key, clz in inspect.getmembers(mod, inspect.isclass):
+            if key.startswith("cb"):
+                continue
+            if not issubclass(clz, Object):
+                continue
+            whitelist(clz)
+
 
 def fetch(obj, pth):
     "read object from disk."

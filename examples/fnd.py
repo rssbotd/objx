@@ -6,7 +6,6 @@
 
 from objx.object  import fmt
 from objx.persist import find, long, skel, types
-from objx.run     import Commands
 
 
 def fnd(event):
@@ -24,6 +23,3 @@ def fnd(event):
         nmr += 1
     if not nmr:
         event.reply("no result")
-
-
-Commands.add(fnd)

@@ -11,6 +11,3 @@ from objx.run    import Commands
 def cmd(event):
     "list commands."
     event.reply(",".join(sorted(keys(Commands.cmds))))
-
-
-Commands.add(cmd)

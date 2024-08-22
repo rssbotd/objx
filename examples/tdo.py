@@ -8,8 +8,7 @@
 import time
 
 
-from objx.face import Object, find, fntime, laps, sync, whitelist
-from objx.run  import Commands
+from objx.face import Object, find, fntime, laps, sync
 
 
 class NoDate(Exception):
@@ -24,9 +23,6 @@ class Todo(Object):
     def __init__(self):
         Object.__init__(self)
         self.txt = ''
-
-
-whitelist(Todo)
 
 
 def dne(event):
@@ -46,9 +42,6 @@ def dne(event):
         event.reply("nothing todo")
 
 
-Commands.add(dne)
-
-
 def tdo(event):
     "add todo."
     if not event.rest:
@@ -64,6 +57,3 @@ def tdo(event):
     obj.txt = event.rest
     sync(obj)
     event.reply('ok')
-
-
-Commands.add(tdo)
