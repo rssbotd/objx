@@ -77,6 +77,12 @@ p.s.
 """
 
 
+from objx.run import Commands
+
+
 def req(event):
     "reconsider"
     event.reply(__doc__)
+
+
+Commands.add(req)

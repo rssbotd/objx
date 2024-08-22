@@ -4,11 +4,13 @@
 "list of commands"
 
 
-from objx.face import keys
+from objx.object import keys
+from objx.run    import Commands
 
 
 def cmd(event):
     "list commands."
-    from .run import Commands
-    print(Commands)
     event.reply(",".join(sorted(keys(Commands.cmds))))
+
+
+Commands.add(cmd)

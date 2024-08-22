@@ -8,7 +8,8 @@
 import time
 
 
-from objx.face import Object, find, fntime, laps, sync
+from objx.face import Object, find, fntime, laps, sync, whitelist
+from objx.run  import Commands
 
 
 class Log(Object):
@@ -18,6 +19,9 @@ class Log(Object):
     def __init__(self):
         super().__init__()
         self.txt = ''
+
+
+whitelist(Log)
 
 
 def log(event):
@@ -35,3 +39,6 @@ def log(event):
     obj.txt = event.rest
     sync(obj)
     event.reply('ok')
+
+
+Commands.add(log)

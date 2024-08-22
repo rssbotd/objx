@@ -7,6 +7,9 @@
 import os
 
 
+from objx.run    import Commands
+
+
 def mod(event):
     "show available modules."
     path = os.path.dirname(__file__)
@@ -18,3 +21,6 @@ def mod(event):
             continue
         mods.append(mdd[:-3])
     event.reply(",".join(sorted(mods)))
+
+
+Commands.add(mod)
