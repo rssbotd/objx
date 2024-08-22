@@ -92,6 +92,13 @@ def named(obj):
     return None
 
 
+def skip(name, skipp):
+    "check for skipping"
+    for skp in spl(skipp):
+        if skp in name:
+            return True
+    return False
+
 
 def spl(txt):
     "split comma separated string into a list."
@@ -113,6 +120,7 @@ def __dir__():
         "fntime",
         'laps',
         'named',
+        'skip',
         'spl',
         "strip"
     )

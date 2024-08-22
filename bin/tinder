@@ -25,12 +25,20 @@ from objx.persist import Persist, find, long, skel, sync, types
 from objx.utility import fntime, laps
 
 
-"config"
+"configuration"
 
 
 class Config(Default):
 
     "configuration"
+
+
+Cfg      = Config()
+Cfg.name = "tinder"
+Cfg.wdr  = f".{Cfg.name}"
+
+
+Persist.workdir = Cfg.wdr
 
 
 "errors"
@@ -168,13 +176,6 @@ def parse(obj, txt=None):
 "runtime"
 
 
-Cfg         = Config()
-Cfg.name    = Object.__module__.rsplit(".", maxsplit=1)[-2]
-Cfg.wdr     = os.path.expanduser(f"~/.{Cfg.name}")
-Cfg.pidfile = os.path.join(Cfg.wdr, f"{Cfg.name}.pid")
-
-
-Persist.workdir = Cfg.wdr
 
 
 class Log(Object):
@@ -263,6 +264,22 @@ def payload():
         return nmr
 
 
+def tinder():
+    "main"
+    if "v" in Cfg.opts:
+        dte = " ".join(time.ctime(time.time()).replace("  ", " ").split()[1:])
+        print(f'{dte} {Cfg.name.upper()} {Cfg.opts.upper()} {Cfg.mod.upper()}'.replace("  ", " "))
+    nrs = Cfg.index or 1
+    nrcommand = len(Commands.cmds) or 1
+    for _nr in range(nrs):
+        payload()
+    endtime = time.time()
+    lap = laps(endtime-STARTTIME)
+    percall = (endtime-STARTTIME)/(nrs*nrcommand)
+    if "v" in Cfg.opts:
+        print(f"{lap} {nrs} {nrcommand} {percall}")
+
+
 def wrap(function):
     "reset terminal."
     old2 = None
@@ -279,22 +296,6 @@ def wrap(function):
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old2)
 
 
-def main():
-    "main"
-    if "v" in Cfg.opts:
-        dte = " ".join(time.ctime(time.time()).replace("  ", " ").split()[1:])
-        print(f'{dte} {Cfg.name.upper()} {Cfg.opts.upper()} {Cfg.mod.upper()}'.replace("  ", " "))
-    nrs = Cfg.index or 1
-    nrcommand = len(Commands.cmds) or 1
-    for _nr in range(nrs):
-        payload()
-    endtime = time.time()
-    lap = laps(endtime-STARTTIME)
-    percall = (endtime-STARTTIME)/(nrs*nrcommand)
-    if "v" in Cfg.opts:
-        print(f"{lap} {nrs} {nrcommand} {percall}")
-
-
 if __name__ == "__main__":
     parse(Cfg, " ".join(sys.argv[1:]))
     Commands.add(cmd)
@@ -305,8 +306,8 @@ if __name__ == "__main__":
             shutil.rmtree(Persist.workdir)
     skel()
     if "p" in Cfg.opts:
-        profile.runctx(main.__code__, globals(), locals())
+        profile.runctx(tinder.__code__, globals(), locals())
     else:
-        wrap(main)
+        wrap(tinder)
     errors()
     sys.exit()
