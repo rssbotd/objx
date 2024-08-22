@@ -8,6 +8,7 @@
 
 import inspect
 import os
+import shutil
 import sys
 import termios
 import time
@@ -16,7 +17,7 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from objx.face import Default, Object, Persist, keys, skip, spl
+from objx.face import Default, Object, Persist, keys, laps, skel, skip, spl
 
 
 if os.path.exists("examples"):
@@ -26,7 +27,7 @@ else:
 
 
 Cfg         = Default()
-Cfg.name    = Object.__module__.rsplit(".", maxsplit=1)[-2]
+Cfg.name    = "tinder"
 Cfg.wdr     = os.path.expanduser(f"~/.{Cfg.name}")
 Cfg.pidfile = os.path.join(Cfg.wdr, f"{Cfg.name}.pid")
 
@@ -90,26 +91,23 @@ def command(evt):
     func = getattr(Commands.cmds, evt.cmd, None)
     if func:
         func(evt)
-        for text in evt.result:
-            print(text)
+
 
 def payload():
     "do payload."
-    cmdz = Commands.cmds
-    with paylock:
-        nmr = 0
-        for cmdd in cmdz:
-            for ex in getattr(param, cmdd, [""]):
-                evt = Event()
-                evt.channel = "#nixt"
-                evt.txt = cmdd + " " + ex
-                command(evt)
-                if "v" not in Cfg.opts:
-                    continue
-                for text in evt.result:
-                    print(text)
-                nmr += 1
-        return nmr
+    nmr = 0
+    for cmdd in Commands.cmds:
+        for ex in getattr(param, cmdd, [""]):
+            evt = Event()
+            evt.channel = "#nixt"
+            evt.txt = cmdd + " " + ex
+            command(evt)
+            if "v" not in Cfg.opts:
+                continue
+            for text in evt.result:
+                print(text)
+            nmr += 1
+    return nmr
 
 
 
@@ -215,15 +213,14 @@ def main():
 
 if __name__ == "__main__":
     parse(Cfg, " ".join(sys.argv[1:]))
-    Commands.add(cmd)
-    Commands.add(fnd)
-    Commands.add(log)
+    Cfg.mod = ",".join(dir(MODS))
+    scan(Cfg.mod, MODS)
     if "f" in Cfg.opts:
         if os.path.exists(Persist.workdir):
             shutil.rmtree(Persist.workdir)
     skel()
     if "p" in Cfg.opts:
-        profile.runctx(tinder.__code__, globals(), locals())
+        profile.runctx(main.__code__, globals(), locals())
     else:
-        wrap(tinder)
+        wrap(main)
     sys.exit()
