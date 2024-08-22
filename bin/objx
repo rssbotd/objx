@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
-# pylint: disable=R0903,R0912,W0105,W0718
+# pylint: disable=C0413,R0903,R0912,W0105,W0201,W0718
 
 
 "commands"
@@ -17,7 +17,9 @@ sys.path.insert(0, os.getcwd())
 
 
 from objx.default import Default
-from objx.object  import Object
+from objx.object  import Object, fmt, keys
+from objx.persist import Persist, find, long, skel, sync, types
+from objx.utility import fntime, laps
 
 
 "config"
@@ -159,17 +161,8 @@ def parse(obj, txt=None):
         obj.txt = obj.cmd or ""
 
 
-# This file is placed in the Public Domain.
-# pylint: disable=R0903,R0912,C0413
 
-
-"locate"
-
-
-from objx.default import Default
-from objx.object  import Object, fmt, keys
-from objx.persist import Persist, find, long, skel, sync, types
-from objx.utility import fntime, laps
+"runtime"
 
 
 Cfg         = Config()
@@ -229,7 +222,7 @@ def log(event):
     event.reply('ok')
 
 
-"runtime"
+"main"
 
 
 if __name__ == "__main__":
@@ -239,6 +232,6 @@ if __name__ == "__main__":
     result = Event()
     result.txt = " ".join(sys.argv[1:])
     command(result)
-    for line in result.result:
-        print(line)
+    for text in result.result:
+        print(text)
     errors()

@@ -13,6 +13,7 @@ from .cache   import *
 from .decoder import *
 from .default import *
 from .encoder import *
+from .group   import *
 from .object  import *
 from .persist import *
 from .utility import *
@@ -20,7 +21,9 @@ from .utility import *
 
 def __dir__():
     return (
+        'Cache',
         'Default',
+        'Group',
         'Object',
         'Persist',
         'fetch',
