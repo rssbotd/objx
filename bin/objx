@@ -20,22 +20,12 @@ from objx.face import Default, Object, Persist, keys, skip, spl
 
 
 if os.path.exists("examples"):
-    import examples.all as MODS
+    import examples as MODS
 else:
     MODS = None
 
-STARTTIME = time.time()
 
-
-rpr = object.__repr__
-
-
-class Config(Default):
-
-    "configuration"
-
-
-Cfg         = Config()
+Cfg         = Default()
 Cfg.name    = Object.__module__.rsplit(".", maxsplit=1)[-2]
 Cfg.wdr     = os.path.expanduser(f"~/.{Cfg.name}")
 Cfg.pidfile = os.path.join(Cfg.wdr, f"{Cfg.name}.pid")
