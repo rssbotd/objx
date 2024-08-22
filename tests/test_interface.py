@@ -27,7 +27,6 @@ PACKAGE = [
     '__package__',
     '__path__',
     '__spec__',
-    'cache',
     'decoder',
     'default',
     'encoder',

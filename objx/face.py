@@ -6,10 +6,9 @@
 "interface"
 
 
-from . import cache, decoder, default, encoder, object, persist, utility
+from . import decoder, default, encoder, group, object, persist, utility
 
 
-from .cache   import *
 from .decoder import *
 from .default import *
 from .encoder import *
@@ -21,7 +20,6 @@ from .utility import *
 
 def __dir__():
     return (
-        'Cache',
         'Default',
         'Group',
         'Object',
