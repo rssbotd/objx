@@ -1,7 +1,8 @@
 # This file is placed in the Public Domain.
+# pylint: disable=R0903,R0912,W0105,W0718
 
 
-"command"
+"commands"
 
 
 import io
@@ -20,7 +21,6 @@ class Errors:
     "Errors"
 
     errors = []
-    out    = None
 
     @staticmethod
     def format(exc):
@@ -37,17 +37,11 @@ class Errors:
             res += line + "\n"
         return res
 
-    @staticmethod
-    def output(exc):
-        "check if output function is set."
-        if Errors.out:
-            Errors.out(Errors.format(exc))
-
 
 def errors():
     "show exceptions"
     for exc in Errors.errors:
-        Errors.output(exc)
+        print(Errors.format(exc))
 
 
 def later(exc):
@@ -148,3 +142,19 @@ def parse(obj, txt=None):
         obj.txt  = obj.cmd + " " + obj.rest
     else:
         obj.txt = obj.cmd or ""
+
+
+"interface"
+
+
+def __dir__():
+    return (
+        'Commands',
+        'Errors',
+        'Event',
+        'command',
+        'errors',
+        'later',
+        'parse'
+    )
+        
