@@ -10,16 +10,6 @@ SYNOPSIS
 ::
 
     objx  <cmd> [key=val] [key==val]
-    objx  [-a] [-c] [-d] [-i] [-v]
-
-    options are:
-
-    -a     load all modules
-    -c     start console
-    -d     run in the background
-    -h     show help
-    -i     start services
-    -v     use verbose
 
 
 INSTALL
@@ -51,43 +41,7 @@ DESCRIPTION
     commands, deferred exception handling to not crash on an error, a
     parser to parse commandline options and values, etc.
 
-    OBJX has a demo bot, it can connect to IRC, fetch and display RSS
-    feeds, take todo notes, keep a shopping list and log text. You can
-    also copy/paste the service file and run it under systemd for 24/7
-    presence in a IRC channel.
-
     OBJX is Public Domain.
-
-
-CONFIGURATION
-
-::
-
-    $ objx cfg 
-    channel=#objx commands=True nick=objx port=6667 server=localhost
-
-    irc
-
-    $ objx cfg server=<server>
-    $ objx cfg channel=<channel>
-    $ objx cfg nick=<nick>
-
-    sasl
-
-    $ objx pwd <nsvnick> <nspass>
-    $ objx cfg password=<frompwd>
-
-    rss
-
-    $ objx rss <url>
-    $ objx dpl <url> <item1,item2>
-    $ objx rem <url>
-    $ objx nme <url> <name>
-
-    opml
-
-    $ objx exp
-    $ objx imp <filename>
 
 
 USAGE
@@ -112,16 +66,6 @@ USAGE
     use -c to start a console
 
     $ objx -c
-
-    use mod=<name1,name2> to load additional modules
-
-    $ botl -c mod=irc,rss
-    >
-
-    use -v for verbose
-
-    $ objx -civ mod=irc
-    BOTL started CV started Sat Dec 2 17:53:24 2023
     >
 
 
@@ -130,55 +74,16 @@ COMMANDS
 ::
 
     cmd - commands
-    cfg - irc configuration
-    dlt - remove a user
-    dpl - sets display items
     fnd - find objects 
     log - log some text
-    met - add a user
-    mre - displays cached output
-    pwd - sasl nickserv name/pass
-    rem - removes a rss feed
-    rss - add a feed
-    thr - show the running threads
+    tdo - add todo
 
-SYSTEMD
-
-::
-
-    save the following it in /etc/systemd/system/objx.service and
-    replace "<user>" with the user running pipx
-
-    [Unit]
-    Description=objects
-    Requires=network-online.target
-    After=network-online.target
-
-    [Service]
-    Type=simple
-    User=<user>
-    Group=<user>
-    WorkingDirectory=/home/<user>/.objx
-    ExecStart=/home/<user>/.local/pipx/venvs/objx/bin/objx -d
-    RemainAfterExit=yes
-
-    [Install]
-    WantedBy=default.target
-
-    then run this
-
-    $ mkdir ~/.objx
-    $ sudo systemctl enable objx --now
-
-    default channel/server is #objx on localhost
 
 FILES
 
 ::
 
     ~/.objx
-    ~/.local/bin/objd
-    ~/.local/bin/objsh
     ~/.local/bin/objx
     ~/.local/pipx/venvs/objx/
 
@@ -186,7 +91,7 @@ AUTHOR
 
 ::
 
-    xobjectz <objx@proton.me>
+    Bart Thate <rssbotd@gmail.com>
 
 COPYRIGHT
 

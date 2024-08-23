@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "objx"
 description = "objects"
-version = "100"
+version = "101"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
@@ -24,9 +24,6 @@ classifiers = [
 ]
 
 
-[project.scripts]
-"objx" = "objx.__main__:wrapped"
-
 [project.urls]
 "home" = "https://pypi.org/project/objx"
 "bugs" = "https://github.com/rssbotd/objx/issues"
@@ -36,7 +33,6 @@ classifiers = [
 [tool.setuptools]
 packages = [
     'objx',
-    'objx.mods'
 ]
 zip-safe=true
 
