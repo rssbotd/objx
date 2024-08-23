@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # This file is placed in the Public Domain.
 # pylint: disable=C0413,R0903,R0912,W0105,W0201,W0611,W0718
 
@@ -176,6 +175,9 @@ def wrap(func):
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old3)
 
 
+def wrapped():
+    wrap(main)
+
 def cmd(event):
     "list commands."
     event.reply(",".join(sorted(keys(Commands.cmds))))
@@ -199,4 +201,5 @@ def main():
 
 
 if __name__ == "__main__":
-    wrap(main)
+    wrapped()
+

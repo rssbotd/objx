@@ -24,6 +24,9 @@ classifiers = [
 ]
 
 
+[project.scripts]
+"objx" = "objx.__main__:wrapped"
+
 [project.urls]
 "home" = "https://pypi.org/project/objx"
 "bugs" = "https://github.com/rssbotd/objx/issues"
