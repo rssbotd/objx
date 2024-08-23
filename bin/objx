@@ -16,7 +16,10 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from objx.face import Default, Object, Persist, keys, skip, spl
+from objx.default import Default
+from objx.object  import Object, keys
+from objx.persist import Persist
+from objx.utility import skip, spl
 
 
 if os.path.exists("examples"):
@@ -123,8 +126,8 @@ def parse(obj, txt=None):
                 else:
                     obj.mod = value
                 continue
-            if not obj.gets:
-                obj.gets = Default()
+            if not obj.sets:
+                obj.sets = Default()
             setattr(obj.sets, key, value)
             continue
         _nr += 1
@@ -181,6 +184,9 @@ def main():
     Commands.add(cmd)
     txt = " ".join(sys.argv[1:])
     parse(Cfg, txt)
+    print(Cfg.sets)
+    if Cfg.sets and Cfg.sets.wdr:
+        Persist.workdir = Cfg.wdr = Cfg.sets.wdr
     Cfg.mod = ",".join(dir(MODS))
     scan(Cfg.mod, MODS)
     if "c" in Cfg.opts:
