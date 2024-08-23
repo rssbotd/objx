@@ -9,4 +9,4 @@ import setuptools
 
 
 if __name__ == "__main__":
-    setuptools.setup(scripts=["bin/objx", "bin/objxc", "bin/objxd"])
+    setuptools.setup()

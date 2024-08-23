@@ -21,10 +21,7 @@ from objx.persist import Persist
 from objx.utility import skip, spl
 
 
-if os.path.exists("examples"):
-    import examples as MODS
-else:
-    MODS = None
+from objx import mods
 
 
 Cfg         = Default()
@@ -189,8 +186,8 @@ def main():
     parse(Cfg, txt)
     if Cfg.sets and Cfg.sets.wdr:
         Persist.workdir = Cfg.wdr = Cfg.sets.wdr
-    Cfg.mod = ",".join(dir(MODS))
-    scan(Cfg.mod, MODS)
+    Cfg.mod = ",".join(dir(mods))
+    scan(Cfg.mod, mods)
     if "c" in Cfg.opts:
         console = Console()
         console.loop()
