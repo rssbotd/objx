@@ -184,7 +184,6 @@ def main():
     Commands.add(cmd)
     txt = " ".join(sys.argv[1:])
     parse(Cfg, txt)
-    print(Cfg.sets)
     if Cfg.sets and Cfg.sets.wdr:
         Persist.workdir = Cfg.wdr = Cfg.sets.wdr
     Cfg.mod = ",".join(dir(MODS))
