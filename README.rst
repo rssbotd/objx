@@ -9,7 +9,7 @@ SYNOPSIS
 
 ::
 
-    >>> from objx.face import Object, dumps, loads
+    >>> from objx import Object, dumps, loads
     >>> o = Object()
     >>> o.a = "b"
     >>> print(loads(dumps(o))
@@ -37,15 +37,6 @@ DESCRIPTION
     provides an "clean namespace" Object class that only has dunder
     methods, so the namespace is not cluttered with method names. This
     makes storing and reading to/from json possible.
-
-    OBJX is Public Domain.
-
-
-AUTHOR
-
-::
-
-    Bart Thate <rssbotd@gmail.com>
 
 
 COPYRIGHT

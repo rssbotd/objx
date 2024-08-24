@@ -5,9 +5,6 @@
 "a clean namespace"
 
 
-import datetime
-
-
 class Object:
 
     "Object"
@@ -97,11 +94,6 @@ def fqn(obj):
     return kin
 
 
-def ident(obj):
-    "return an id for an object."
-    return pjoin(fqn(obj), *str(datetime.datetime.now()).split())
-
-
 def items(obj):
     "return the items of an object."
     if isinstance(obj, type({})):
@@ -154,14 +146,6 @@ def values(obj):
     return obj.__dict__.values()
 
 
-"interface"
-
-
-def pjoin(*args):
-    "path join."
-    return "/".join(args)
-
-
 def __dir__():
     return (
         'Object',
@@ -169,7 +153,6 @@ def __dir__():
         'edit',
         'fmt',
         'fqn',
-        'ident',
         'items',
         'keys',
         'match',

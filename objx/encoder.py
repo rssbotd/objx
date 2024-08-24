@@ -10,7 +10,6 @@ import json
 
 from .lock    import lock
 from .object  import Object
-from .utility import cdir
 
 
 class ObjectEncoder(json.JSONEncoder):
@@ -62,7 +61,6 @@ def dumps(*args, **kw):
 def write(obj, pth):
     "write an object to disk."
     with lock:
-        cdir(pth)
         with open(pth, 'w', encoding='utf-8') as ofile:
             dump(obj, ofile, indent=4)
 
