@@ -30,8 +30,7 @@ PACKAGE = [
     'decoder',
     'encoder',
     'lock',
-    'object',
-    'utility'
+    'object'
 ]
 
 
