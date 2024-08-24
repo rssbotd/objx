@@ -11,7 +11,7 @@ import sys
 import unittest
 
 
-from objx.face import *
+from objx import *
 
 
 import objx
@@ -28,12 +28,9 @@ PACKAGE = [
     '__path__',
     '__spec__',
     'decoder',
-    'default',
     'encoder',
-    'face',
     'lock',
     'object',
-    'persist',
     'utility'
 ]
 
