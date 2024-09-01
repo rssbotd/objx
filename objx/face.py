@@ -7,6 +7,7 @@
 
 
 from .decoder import *
+from .default import *
 from .disk    import *
 from .encoder import *
 from .find    import *
@@ -16,6 +17,7 @@ from .workdir import Workdir
 
 def __dir__():
     return (
+        'Default',
         'Object',
         'construct',
         'dump',

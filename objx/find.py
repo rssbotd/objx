@@ -8,8 +8,9 @@
 import os
 
 
+from .default import Default
 from .disk    import fetch
-from .object  import Object, search, update
+from .object  import search, update
 from .utils   import fqn, fntime, strip
 from .workdir import long, store
 
@@ -49,7 +50,7 @@ def find(mtc, selector=None, index=None, deleted=False):
     clz = long(mtc)
     nrs = -1
     for fnm in sorted(fns(clz), key=fntime):
-        obj = Object()
+        obj = Default()
         fetch(obj, fnm)
         if not deleted and '__deleted__' in obj and obj.__deleted__:
             continue
