@@ -1,12 +1,17 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R
+# pylint: disable=C,I,R,E1101
 
 
 "find"
 
 
+import os
+
+
 from .disk    import fetch
-from .workdir import store
+from .object  import Object, search, update
+from .utils   import fqn, fntime, strip
+from .workdir import long, store
 
 
 def last(obj, selector=None):
@@ -44,7 +49,7 @@ def find(mtc, selector=None, index=None, deleted=False):
     clz = long(mtc)
     nrs = -1
     for fnm in sorted(fns(clz), key=fntime):
-        obj = Default()
+        obj = Object()
         fetch(obj, fnm)
         if not deleted and '__deleted__' in obj and obj.__deleted__:
             continue

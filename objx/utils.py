@@ -8,10 +8,8 @@
 import datetime
 import os
 import pathlib
-import pwd
 import time
 import types as rtypes
-import _thread
 
 
 def cdir(pth):

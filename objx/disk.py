@@ -8,6 +8,8 @@
 import os
 
 
+from .decoder import read
+from .encoder import write
 from .lock    import disklock
 from .workdir import store
 from .utils   import ident

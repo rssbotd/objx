@@ -10,6 +10,10 @@ import os
 import pathlib
 
 
+from .object import Object
+from .utils  import fqn
+
+
 class Workdir:
 
     "Workdir"
