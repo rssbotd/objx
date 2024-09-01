@@ -58,7 +58,7 @@ def find(mtc, selector=None, index=None, deleted=False):
 
 def __dir__():
     return (
-        'fns',
         'find',
+        'fns',
         'last'
     )

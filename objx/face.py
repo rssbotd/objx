@@ -6,12 +6,12 @@
 "interface"
 
 
-from . import decoder, encoder, object
-
-
 from .decoder import *
+from .disk    import *
 from .encoder import *
+from .find    import *
 from .object  import *
+from .workdir import Workdir
 
 
 def __dir__():
@@ -21,17 +21,22 @@ def __dir__():
         'dump',
         'dumps',
         'edit',
+        'fetch',
+        'find',
         'fmt',
+        'fns',
         'fqn',
         'hook',
         'ident',
         'items',
         'keys',
+        'last',
         'load',
         'loads',
         'match',
         'read',
-        'search',
+        'search'
+        'sync',
         'update',
         'values',
         'write'
