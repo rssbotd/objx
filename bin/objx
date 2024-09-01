@@ -7,18 +7,17 @@
 
 
 import inspect
-import io
 import os
 import sys
 import termios
 import time
-import traceback
 
 
 sys.path.insert(0, os.getcwd())
 
 
 from objx.default import Default
+from objx.object  import keys
 from objx.utils   import skip, spl
 
 
@@ -163,9 +162,15 @@ def wrap(func):
         if old2:
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old2)
 
+def cmd(event):
+    "list commands."
+    event.reply(",".join(sorted(keys(Commands.cmds))))
+
+
 
 def main():
     "main"
+    Commands.add(cmd)
     Cfg = Default()
     parse(Cfg, " ".join(sys.argv[1:]))
     if os.path.exists("mods"):

@@ -6,4 +6,4 @@
 "all modules"
 
 
-from . import cmd, fnd, log, mod, tdo
+from . import fnd, log, mod, tdo
