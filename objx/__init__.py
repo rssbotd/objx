@@ -25,35 +25,3 @@ json possible.
 
 
 OBJX is Public Domain."""
-
-
-from . import decoder, encoder, object
-
-
-from .decoder import *
-from .encoder import *
-from .object  import *
-
-
-def __dir__():
-    return (
-        'Object',
-        'construct',
-        'dump',
-        'dumps',
-        'edit',
-        'fmt',
-        'fqn',
-        'hook',
-        'ident',
-        'items',
-        'keys',
-        'load',
-        'loads',
-        'match',
-        'read',
-        'search',
-        'update',
-        'values',
-        'write'
-    )
