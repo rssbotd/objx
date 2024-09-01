@@ -9,7 +9,8 @@
 import unittest
 
 
-from objx.object import Object, fmt, fqn, items, keys, update, values
+from objx.object import Object, fmt, items, keys, update, values
+from objx.utils  import fqn
 
 
 VALIDJSON = '{"test": "bla"}'

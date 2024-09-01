@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=W0401,W0614,W0622
+# pylint: disable=C,I,R,W0401,W0614,W0622
 # ruff: noqa: F403,F405
 
 
@@ -11,10 +11,12 @@ import sys
 import unittest
 
 
-from objx import *
+from objx.face import *
 
 
 import objx
+
+import objx.face
 
 
 PACKAGE = [
@@ -24,13 +26,16 @@ PACKAGE = [
     '__file__',
     '__loader__',
     '__name__',
-    '__package__',
     '__path__',
+    '__package__',
     '__spec__',
     'decoder',
+    'disk',
     'encoder',
+    'find',
     'lock',
-    'object'
+    'object',
+    'workdir'
 ]
 
 
@@ -81,7 +86,7 @@ DIFF = [
 OBJECT = objx
 
 
-class TestInterface(unittest.TestCase): # pylint: disable=R0903
+class TestInterface(unittest.TestCase):
 
     "TestInterface"
 
