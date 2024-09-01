@@ -11,7 +11,7 @@ import time
 from objx.disk   import sync
 from objx.object import Object
 from objx.find   import find
-from objx.utils  import laps
+from objx.utils  import fntime, laps
 
 
 class NoDate(Exception):
