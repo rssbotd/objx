@@ -8,7 +8,6 @@
 import json
 
 
-from .lock    import lock
 from .object  import Object
 
 
@@ -58,16 +57,9 @@ def dumps(*args, **kw):
     return json.dumps(*args, **kw)
 
 
-def write(obj, pth):
-    "write an object to disk."
-    with lock:
-        with open(pth, 'w', encoding='utf-8') as ofile:
-            dump(obj, ofile, indent=4)
-
 
 def __dir__():
     return (
         'dump',
-        'dumps',
-        'write'
+        'dumps'
     )

@@ -11,12 +11,12 @@ import sys
 import unittest
 
 
-from objx.face import *
+from objx.decoder import *
+from objx.object  import *
+from objx.encoder import *
 
 
 import objx
-
-import objx.face
 
 
 PACKAGE = [
@@ -30,12 +30,8 @@ PACKAGE = [
     '__package__',
     '__spec__',
     'decoder',
-    'disk',
     'encoder',
-    'find',
-    'lock',
-    'object',
-    'workdir'
+    'object'
 ]
 
 

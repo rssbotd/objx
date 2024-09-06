@@ -8,7 +8,6 @@
 import json
 
 
-from .lock   import lock
 from .object import Object, construct, update
 
 
@@ -55,17 +54,9 @@ def loads(string, *args, **kw):
     return json.loads(string, *args, **kw)
 
 
-def read(obj, pth):
-    "read an object from file path."
-    with lock:
-        with open(pth, 'r', encoding='utf-8') as ofile:
-            update(obj, load(ofile))
-
-
 def __dir__():
     return (
         'hook',
         'load',
-        'loads',
-        'read'
+        'loads'
     )
