@@ -9,14 +9,14 @@
 import logging
 import sys
 import unittest
+import objx
+
+
+from objx import *
 
 
 from objx.decoder import *
-from objx.object  import *
 from objx.encoder import *
-
-
-import objx
 
 
 PACKAGE = [
@@ -31,7 +31,6 @@ PACKAGE = [
     '__spec__',
     'decoder',
     'encoder',
-    'object'
 ]
 
 

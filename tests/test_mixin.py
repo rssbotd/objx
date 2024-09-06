@@ -1,4 +1,5 @@
 # This file is placed in the Public Domain.
+# pylint: disable=C,I,R
 
 
 "mixin"
@@ -7,16 +8,16 @@
 import unittest
 
 
-from objx.object import Object
+from objx import Object
 
 
-class Mix: # pylint: disable=R0903
+class Mix:
     "class to mixin."
 
     a = "b"
 
 
-class Mixin(Mix, Object): # pylint: disable=R0903
+class Mixin(Mix, Object):
 
     "mixin class"
 

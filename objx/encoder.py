@@ -8,7 +8,7 @@
 import json
 
 
-from .object  import Object
+from .  import Object
 
 
 class ObjectEncoder(json.JSONEncoder):
