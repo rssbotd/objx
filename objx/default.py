@@ -5,7 +5,7 @@
 "default"
 
 
-from objx import Object
+from .object import Object
 
 
 class Default(Object):

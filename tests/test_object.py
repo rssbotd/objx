@@ -139,7 +139,7 @@ class TestObject(unittest.TestCase):
 
     def test_module(self):
         "test module name."
-        self.assertEqual(Object().__module__, "objx")
+        self.assertEqual(Object().__module__, "objx.object")
 
     def test_repr(self):
         "test representation."
