@@ -7,6 +7,7 @@
 from . import decoder, default, encoder, object
 
 
+from .broker  import *
 from .decoder import *
 from .default import Default
 from .encoder import *
@@ -15,6 +16,7 @@ from .object  import *
 
 def __dir__():
     return (
+        'Broker',
         'Default',
         'Object',
         'construct',
