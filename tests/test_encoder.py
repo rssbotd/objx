@@ -7,6 +7,7 @@
 "no tests"
 
 
+import types
 import unittest
 
 
@@ -75,3 +76,20 @@ class TestEncoder(unittest.TestCase):
         o.a = "b"
         res = dumps(o)
         self.assertEqual(res, '{"a": "b"}')
+
+    def test_types(self):
+        for typ in dir(types):
+            print(dumps(typ))
+        has = []
+        hasnot = []
+        for typename in dir(types):
+            try:
+                typ = getattr(types, typename)
+                print(dumps(typ()))
+                has.append(typename)
+            except TypeError:
+                hasnot.append(typename)
+                pass
+        print(hasnot)
+        print(has)
+        bla
