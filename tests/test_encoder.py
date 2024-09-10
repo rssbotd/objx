@@ -7,7 +7,6 @@
 "no tests"
 
 
-import types
 import unittest
 
 
