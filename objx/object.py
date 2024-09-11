@@ -5,6 +5,9 @@
 "a clean namespace"
 
 
+import json
+
+
 class Object:
 
     "Object"
@@ -26,6 +29,104 @@ class Object:
 
     def __str__(self):
         return str(self.__dict__)
+
+
+"decoder"
+
+
+class ObjectDecoder(json.JSONDecoder):
+
+    "ObjectDecoder"
+
+    def __init__(self, *args, **kwargs):
+        json.JSONDecoder.__init__(self, *args, **kwargs)
+
+    def decode(self, s, _w=None):
+        "decoding string to object."
+        val = json.JSONDecoder.decode(self, s)
+        if not val:
+            val = {}
+        return hook(val)
+
+    def raw_decode(self, s, idx=0):
+        "decode partial string to object."
+        return json.JSONDecoder.raw_decode(self, s, idx)
+
+
+def hook(objdict, typ=None):
+    "construct object from dict."
+    if typ:
+        obj = typ()
+    else:
+        obj = Object()
+    construct(obj, objdict)
+    return obj
+
+
+def load(fpt, *args, **kw):
+    "load object from file."
+    kw["cls"] = ObjectDecoder
+    kw["object_hook"] = hook
+    return json.load(fpt, *args, **kw)
+
+
+def loads(string, *args, **kw):
+    "load object from string."
+    kw["cls"] = ObjectDecoder
+    kw["object_hook"] = hook
+    return json.loads(string, *args, **kw)
+
+
+"encoder"
+
+
+class ObjectEncoder(json.JSONEncoder):
+
+    "ObjectEncoder"
+
+    def __init__(self, *args, **kwargs):
+        json.JSONEncoder.__init__(self, *args, **kwargs)
+
+    def default(self, o):
+        "return stringable value."
+        if isinstance(o, dict):
+            return o.items()
+        if isinstance(o, Object):
+            return vars(o)
+        if isinstance(o, list):
+            return iter(o)
+        if isinstance(o, (type(str), type(True), type(False), type(int), type(float))):
+            return o
+        try:
+            return json.JSONEncoder.default(self, o)
+        except TypeError:
+            try:
+                return o.__dict__
+            except AttributeError:
+                return repr(o)
+
+    def encode(self, o) -> str:
+        "encode object to string."
+        return json.JSONEncoder.encode(self, o)
+
+    def iterencode(self, o, _one_shot=False):
+        "loop over object to encode to string."
+        return json.JSONEncoder.iterencode(self, o, _one_shot)
+
+
+def dump(*args, **kw):
+    "dump object to file."
+    kw["cls"] = ObjectEncoder
+    return json.dump(*args, **kw)
+
+
+def dumps(*args, **kw):
+    "dump object to string."
+    kw["cls"] = ObjectEncoder
+    return json.dumps(*args, **kw)
+
+
+"methods"
 
 
 def construct(obj, *args, **kwargs):
@@ -151,15 +252,19 @@ def values(obj):
 
 def __dir__():
     return (
-        'Default',
         'Object',
         'construct',
+        'dump',
         'dumps',
         'edit',
         'fmt',
         'fqn',
+        'hook',
+        'load',
+        'loads'
         'items',
         'keys',
+        'load',
         'loads',
         'match',
         'search',
