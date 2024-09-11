@@ -16,8 +16,8 @@ from objx import Object, dumps
 class TestEncoder(unittest.TestCase):
 
     def test_emptystring(self):
-        a = ""
-        res = dumps(a)
+        aaa = ""
+        res = dumps(aaa)
         self.assertEqual(res, '""')
 
     def test_string(self):
@@ -72,6 +72,6 @@ class TestEncoder(unittest.TestCase):
 
     def test_object(self):
         o = Object()
-        o.a = "b"
+        o.aaa = "b"
         res = dumps(o)
-        self.assertEqual(res, '{"a": "b"}')
+        self.assertEqual(res, '{"aaa": "b"}')
