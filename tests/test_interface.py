@@ -15,10 +15,6 @@ import objx
 from objx import *
 
 
-from objx.decoder import *
-from objx.encoder import *
-
-
 PACKAGE = [
     '__builtins__',
     '__cached__',
@@ -29,8 +25,7 @@ PACKAGE = [
     '__path__',
     '__package__',
     '__spec__',
-    'decoder',
-    'encoder',
+    'object'
 ]
 
 
