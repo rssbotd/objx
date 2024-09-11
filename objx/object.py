@@ -31,6 +31,13 @@ class Object:
         return str(self.__dict__)
 
 
+class Default(Object):
+
+    "Default"
+
+    def __getattr__(self, key):
+        return self.__dict__.get(key, "")
+
 "decoder"
 
 
@@ -252,6 +259,7 @@ def values(obj):
 
 def __dir__():
     return (
+        'Default',
         'Object',
         'construct',
         'dump',
