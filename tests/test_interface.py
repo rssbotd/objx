@@ -25,7 +25,6 @@ PACKAGE = [
     '__path__',
     '__package__',
     '__spec__',
-    'object'
 ]
 
 
